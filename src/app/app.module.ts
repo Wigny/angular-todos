@@ -31,9 +31,11 @@ import { TodoComponent } from './todo/todo.component';
           cache: new InMemoryCache(),
           link: httpLink.create({
             uri: 'https://backend-todos-list.herokuapp.com/v1/graphql',
-            // headers: {
-            //   Authorization: `Bearer ${localStorage.getItem('token')}`
-            // }
+            headers: {
+              'content-type': 'application/json',
+              'x-hasura-admin-secret': '_todos-angular'
+              //   Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
           })
         });
       },
