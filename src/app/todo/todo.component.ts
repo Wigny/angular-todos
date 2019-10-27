@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import gql from 'graphql-tag';
 import { Apollo } from 'apollo-angular';
 
-const GET_MY_TODOS = gql`
-  query getTodos {
-    todos(where: {id_user: {_eq: 1}}, order_by: {createdAt: desc}) {
+const GET_TODOS = gql`
+  subscription getTodos($user_id: Int!) {
+    todos(where: {id_user: {_eq: $user_id}}) {
       id
       text
     }
@@ -20,21 +20,20 @@ export class TodoComponent implements OnInit {
 
   loading = true;
   todos: [];
-  filteredTodos: any;
 
-  constructor(private apollo: Apollo) {
-
-  }
+  constructor(private apollo: Apollo) { }
 
   ngOnInit() {
-    this.apollo.watchQuery<any>({
-      query: GET_MY_TODOS
-    })
-      .valueChanges
-      .subscribe(({ data, loading }) => {
-        this.loading = loading;
+    this.apollo
+      .subscribe({
+        query: GET_TODOS,
+        variables: {
+          user_id: 1
+        }
+      })
+      .subscribe(({ data }: any) => {
         this.todos = data.todos;
-        this.filteredTodos = this.todos;
+        this.loading = false;
       });
   }
 }

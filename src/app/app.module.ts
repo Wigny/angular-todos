@@ -6,6 +6,7 @@ import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpClientModule } from '@angular/common/http';
 import { ApolloClient } from 'apollo-client';
+import { WebSocketLink } from 'apollo-link-ws';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,12 +30,17 @@ import { TodoComponent } from './todo/todo.component';
       useFactory: (httpLink: any) => {
         return new ApolloClient({
           cache: new InMemoryCache(),
-          link: httpLink.create({
-            uri: 'https://backend-todos-list.herokuapp.com/v1/graphql',
-            headers: {
-              'content-type': 'application/json',
-              'x-hasura-admin-secret': '_todos-angular'
-              //   Authorization: `Bearer ${localStorage.getItem('token')}`
+          link: new WebSocketLink({
+            uri: 'wss://backend-todos-list.herokuapp.com/v1/graphql',
+            options: {
+              reconnect: true,
+              connectionParams: {
+                headers: {
+                  'content-type': 'application/json',
+                  'x-hasura-admin-secret': '_todos-angular'
+                  //   Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+              }
             }
           })
         });
