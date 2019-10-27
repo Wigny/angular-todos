@@ -1,10 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { ApolloModule, APOLLO_OPTIONS } from "apollo-angular";
-import { HttpLinkModule, HttpLink } from "apollo-angular-link-http";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { HttpClientModule } from "@angular/common/http";
+import { ApolloModule, APOLLO_OPTIONS } from 'apollo-angular';
+import { HttpLinkModule, HttpLink } from 'apollo-angular-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { HttpClientModule } from '@angular/common/http';
 import { ApolloClient } from 'apollo-client';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -35,7 +35,7 @@ import { TodoComponent } from './todo/todo.component';
             //   Authorization: `Bearer ${localStorage.getItem('token')}`
             // }
           })
-        })
+        });
       },
       deps: [HttpLink]
     }

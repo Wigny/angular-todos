@@ -18,7 +18,7 @@ const GET_MY_TODOS = gql`
 })
 export class TodoComponent implements OnInit {
 
-  loading: boolean = true;
+  loading = true;
   todos: [];
   filteredTodos: any;
 
@@ -34,11 +34,7 @@ export class TodoComponent implements OnInit {
       .subscribe(({ data, loading }) => {
         this.loading = loading;
         this.todos = data.todos;
-        console.log(this.todos)
         this.filteredTodos = this.todos;
       });
   }
-
-
-
 }
