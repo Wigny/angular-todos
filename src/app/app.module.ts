@@ -11,6 +11,7 @@ import { WebSocketLink } from 'apollo-link-ws';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TodoComponent } from './todo/todo.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -22,12 +23,13 @@ import { TodoComponent } from './todo/todo.component';
     AppRoutingModule,
     HttpClientModule,
     ApolloModule,
-    HttpLinkModule
+    HttpLinkModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {
       provide: APOLLO_OPTIONS,
-      useFactory: (httpLink: any) => {
+      useFactory: () => {
         return new ApolloClient({
           cache: new InMemoryCache(),
           link: new WebSocketLink({
